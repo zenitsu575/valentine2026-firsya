@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine Sayang - Valentine 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', 'Georgia', serif;
+        }
+        
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f080b 0%, #1e1218 50%, #2d1a25 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        
+        #loading-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loading-heart {
+            font-size: 4rem;
+            color: #ff6b9d;
+            margin-bottom: 30px;
+            animation: heartbeat 1.2s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .loading-text {
+            color: #ffd6e7;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .loading-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 107, 157, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .loading-progress {
+            position: absolute;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff6b9d, #ff8ab3, #ff6b9d);
+            border-radius: 2px;
+            animation: loading 3s ease-in-out;
+        }
+        
+        @keyframes loading {
+            0% { width: 0%; }
+            50% { width: 80%; }
+            100% { width: 100%; }
+        }
+        
+        .loading-quote {
+            color: #e8b4ce;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            text-align: center;
+            max-width: 500px;
+            line-height: 1.6;
+            opacity: 0.8;
+            font-style: italic;
+        }
+        
+        /* Main Content */
+        body {
+            background: linear-gradient(135deg, #0f080b 0%, #1e1218 50%, #2d1a25 100%);
+            color: #f8e7f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 50px 0 40px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(200, 50, 100, 0.15) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #ffd6e7;
+            text-shadow: 0 0 25px rgba(255, 100, 150, 0.5);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            animation: titleFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #e8b4ce;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+        
+        .love-icon {
+            color: #ff6b9d;
+            margin: 0 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Layout galeri kiri-kanan */
+        .gallery-layout {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 40px 0;
+            gap: 30px;
+        }
+        
+        .left-column, .right-column {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .center-heart {
+            flex: 0 0 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .heart-connector {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .heart-connector::before {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, #ff6b9d, transparent);
+        }
+        
+        .big-heart {
+            font-size: 5rem;
+            color: #ff6b9d;
+            z-index: 2;
+            background: rgba(30, 15, 22, 0.8);
+            border-radius: 50%;
+            padding: 15px;
+            animation: heartbeat 1.5s infinite;
+            box-shadow: 0 0 30px rgba(255, 107, 157, 0.4);
+        }
+        
+        /* Styling untuk foto */
+        .photo-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(20, 10, 15, 0.7);
+            min-height: 200px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .photo-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Foto di kolom kiri rata kanan, di kolom kanan rata kiri */
+        .left-column .photo-item {
+            margin-left: auto;
+            margin-right: 0;
+        }
+        
+        .right-column .photo-item {
+            margin-left: 0;
+            margin-right: auto;
+        }
+        
+        .photo-item:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 60px rgba(255, 100, 150, 0.4);
+        }
+        
+        /* Bingkai dengan efek khusus untuk kiri dan kanan */
+        .photo-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(to bottom, #ff6b9d, #ff8ab3, #ff6b9d);
+            z-index: 5;
+            opacity: 0.8;
+        }
+        
+        .left-column .photo-item::before {
+            right: 0;
+            border-radius: 0 0 0 5px;
+        }
+        
+        .right-column .photo-item::before {
+            left: 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .photo-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .photo-number {
+            font-size: 1.8rem;
+            color: #ff6b9d;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .photo-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 2px solid rgba(255, 107, 157, 0.3);
+            transition: transform 0.5s;
+        }
+        
+        .photo-item:hover .photo-img {
+            transform: scale(1.05);
+        }
+        
+        .photo-title {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ffd6e7;
+            text-align: center;
+        }
+        
+        .photo-date {
+            font-size: 0.95rem;
+            color: #e8b4ce;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        /* Efek kilau pada foto */
+        .photo-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.05) 50%, transparent 60%);
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .photo-item:hover::after {
+            opacity: 1;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 50px 0;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 100, 150, 0.2);
+            color: #d8a4bc;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ff6b9d, transparent);
+        }
+        
+        .footer-heart {
+            color: #ff6b9d;
+            margin: 0 8px;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        /* Indikator musik (tanpa kontrol) */
+        .music-indicator {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(40, 15, 25, 0.9);
+            color: #ffd6e7;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            border: 1px solid rgba(255, 100, 150, 0.3);
+            animation: pulseGlow 2s infinite;
+            cursor: default;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { 
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 100, 150, 0.3);
+            }
+            50% { 
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4), 0 0 25px rgba(255, 100, 150, 0.5);
+            }
+        }
+        
+        /* Partikel hati di latar belakang */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart-particle {
+            position: absolute;
+            color: rgba(255, 100, 150, 0.15);
+            font-size: 24px;
+            opacity: 0;
+            animation: floatHeart 20s linear infinite;
+        }
+        
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsif untuk semua perangkat */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 3.2rem;
+            }
+            
+            .center-heart {
+                flex: 0 0 100px;
+            }
+            
+            .big-heart {
+                font-size: 4rem;
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .gallery-layout {
+                flex-direction: column;
+            }
+            
+            .center-heart {
+                order: -1;
+                margin: 30px 0;
+                flex: 0 0 auto;
+                height: 100px;
+            }
+            
+            .heart-connector::before {
+                width: 100%;
+                height: 3px;
+                background: linear-gradient(to right, transparent, #ff6b9d, transparent);
+            }
+            
+            .left-column .photo-item, 
+            .right-column .photo-item {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 500px;
+            }
+            
+            .loading-heart {
+                font-size: 3rem;
+            }
+            
+            .loading-bar {
+                width: 250px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+                padding: 0 15px;
+            }
+            
+            .photo-item {
+                min-height: 180px;
+            }
+            
+            .photo-img {
+                height: 150px;
+            }
+            
+            .photo-title {
+                font-size: 1.2rem;
+            }
+            
+            .loading-text {
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            header {
+                padding: 30px 0 25px;
+            }
+            
+            .gallery-layout {
+                gap: 20px;
+                margin: 30px 0;
+            }
+            
+            .left-column, .right-column {
+                gap: 20px;
+            }
+            
+            .photo-item {
+                min-height: 160px;
+            }
+            
+            .photo-img {
+                height: 130px;
+            }
+            
+            footer {
+                padding: 30px 0;
+                margin-top: 40px;
+            }
+            
+            .music-indicator {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .loading-heart {
+                font-size: 2.5rem;
+            }
+            
+            .loading-bar {
+                width: 200px;
+            }
+            
+            .loading-text {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .photo-item {
+                min-height: 150px;
+            }
+            
+            .photo-img {
+                height: 120px;
+            }
+            
+            .photo-number {
+                font-size: 1.5rem;
+            }
+            
+            .loading-heart {
+                font-size: 2rem;
+            }
+            
+            .loading-bar {
+                width: 180px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-heart">❤</div>
+        <div class="loading-text">MEMUAT...</div>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+        <div class="loading-quote">"Happy Valentine Sayangg🤍"</div>
+    </div>
+    
+    <!-- Partikel hati di latar belakang -->
+    <div class="hearts-bg" id="heartsBg"></div>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <header>
+            <div class="header-overlay"></div>
+            <h1>Happy  <span class="love-icon">❤</span> Valentine</h1>
+            <p class="subtitle">Happy Valentine yaa, semoga kamu suka hadiah kedua aku 🤍</p>
+        </header>
+        
+        <main>
+            <div class="gallery-layout">
+                <!-- Kolom kiri - foto 1-7 -->
+                <div class="left-column" id="leftColumn">
+                    <!-- Foto akan dimuat melalui JavaScript -->
+                </div>
+                
+                <!-- Jantung tengah sebagai pemisah -->
+                <div class="center-heart">
+                    <div class="heart-connector"></div>
+                    <div class="big-heart">❤</div>
+                </div>
+                
+                <!-- Kolom kanan - foto 8-15 -->
+                <div class="right-column" id="rightColumn">
+                    <!-- Foto akan dimuat melalui JavaScript -->
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Dibuat dengan <span class="footer-heart">❤</span> penuh cinta untuk Valentine 2026</p>
+            <p>maaf kalo hadiah kedua ini norak atau alay bagi kamu, tapi ini suatu hadiah yang berbeda dari orang lain🤍</p>
+        </footer>
+    </div>
+    
+    <!-- Indikator musik (bukan kontrol) -->
+    <div class="music-indicator">
+        <i class="fas fa-music"></i>
+    </div>
+    
+    <!-- Audio untuk background music (autoplay) -->
+    <audio id="backgroundMusic" loop autoplay>
+        <!-- Ganti sumber musik dengan URL musik pilihan Anda -->
+        <source src="https://files.catbox.moe/mxfiio.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+    
+    <script>
+        // Data foto pasangan (ganti dengan foto Anda)
+        const photosData = [
+            { id: 1, title: "Awal TTM", date: "10 Desember 2025", url: "https://files.catbox.moe/gp1o6n.jpg" },
+            { id: 2, title: "", date: "", url: "https://files.catbox.moe/gctekj.jpg" },
+            { id: 3, title: "", date: "", url: "https://files.catbox.moe/rawv2p.jpg" },
+            { id: 4, title: "", date: "", url: "https://files.catbox.moe/ejpla1.jpg" },
+            { id: 5, title: "", date: "", url: "https://files.catbox.moe/advvuq.jpg" },
+            { id: 6, title: "", date: "", url: "https://files.catbox.moe/yv44n2.jpg" },
+            { id: 7, title: "", date: "", url: "https://files.catbox.moe/oj4y4x.jpg" },
+            { id: 8, title: "", date: "", url: "https://files.catbox.moe/nl8nen.jpg" },
+            { id: 9, title: "", date: "", url: "https://files.catbox.moe/nrj68j.jpg" },
+            { id: 10, title: "", date: "", url: "https://files.catbox.moe/zya3eu.jpg" },
+            { id: 11, title: "", date: "", url: "https://files.catbox.moe/zya3eu.jpg" },
+            { id: 12, title: "", date: "", url: "https://files.catbox.moe/yb2cxx.jpg" },
+            { id: 13, title: "", date: "", url: "https://files.catbox.moe/weuc1n.jpg" },
+            { id: 14, title: "", date: "", url: "https://files.catbox.moe/96xyg5.jpg" },
+            { id: 15, title: "Valentine Pertama", date: "14 Februari 2026", url: "https://files.catbox.moe/kz6ukm.jpg" }
+        ];
+
+        // Fungsi untuk memulai musik secara otomatis
+        function startBackgroundMusic() {
+            const music = document.getElementById('backgroundMusic');
+            
+            // Coba putar musik dengan berbagai strategi
+            const playMusic = () => {
+                music.volume = 0.7; // Atur volume
+                const playPromise = music.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("Autoplay dicegah, mencoba strategi lain...");
+                        
+                        // Strategi alternatif: tambah interaksi pengguna
+                        document.body.addEventListener('click', function startMusicOnClick() {
+                            music.play().then(() => {
+                                console.log("Musik dimulai setelah interaksi pengguna");
+                            }).catch(e => {
+                                console.log("Masih gagal memutar musik:", e);
+                            });
+                            
+                            // Hapus event listener setelah digunakan
+                            document.body.removeEventListener('click', startMusicOnClick);
+                        });
+                    });
+                }
+            };
+            
+            // Coba putar musik setelah sedikit delay
+            setTimeout(playMusic, 1500);
+            
+            // Jika musik berhasil diputar, ubah indikator
+            music.addEventListener('playing', () => {
+                console.log("Musik berhasil diputar otomatis");
+                document.querySelector('.music-indicator i').className = 'fas fa-volume-up';
+            });
+        }
+
+        // Fungsi untuk membuat partikel hati di latar belakang
+        function createHeartParticles() {
+            const heartsBg = document.getElementById('heartsBg');
+            const particleCount = 40;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-particle');
+                heart.innerHTML = '❤';
+                
+                // Posisi acak
+                const left = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = 15 + Math.random() * 15;
+                const size = Math.random() * 20 + 10;
+                
+                heart.style.left = `${left}%`;
+                heart.style.fontSize = `${size}px`;
+                heart.style.animationDelay = `${delay}s`;
+                heart.style.animationDuration = `${duration}s`;
+                
+                heartsBg.appendChild(heart);
+            }
+        }
+
+        // Fungsi untuk memuat galeri foto
+        function loadGallery() {
+            const leftColumn = document.getElementById('leftColumn');
+            const rightColumn = document.getElementById('rightColumn');
+            
+            // Bagi foto menjadi dua kolom
+            const leftPhotos = photosData.slice(0, 7); // Foto 1-7 di kiri
+            const rightPhotos = photosData.slice(7);   // Foto 8-15 di kanan
+            
+            // Load foto di kolom kiri
+            leftPhotos.forEach(photo => {
+                const photoElement = createPhotoElement(photo);
+                leftColumn.appendChild(photoElement);
+            });
+            
+            // Load foto di kolom kanan
+            rightPhotos.forEach(photo => {
+                const photoElement = createPhotoElement(photo);
+                rightColumn.appendChild(photoElement);
+            });
+        }
+        
+        // Fungsi untuk membuat elemen foto
+        function createPhotoElement(photo) {
+            const photoElement = document.createElement('div');
+            photoElement.className = 'photo-item';
+            
+            photoElement.innerHTML = `
+                <div class="photo-content">
+                    <div class="photo-number">${photo.id}</div>
+                    <img src="${photo.url}" alt="${photo.title}" class="photo-img" loading="lazy">
+                    <div class="photo-title">${photo.title}</div>
+                    <div class="photo-date">${photo.date}</div>
+                </div>
+            `;
+            
+            return photoElement;
+        }
+
+        // Fungsi untuk menghilangkan loading screen
+        function hideLoadingScreen() {
+            const loadingScreen = document.getElementById('loading-screen');
+            
+            // Tunggu animasi loading selesai (3 detik sesuai durasi animasi)
+            setTimeout(() => {
+                loadingScreen.classList.add('fade-out');
+                
+                // Setelah loading screen hilang, tampilkan foto dengan animasi
+                setTimeout(() => {
+                    animatePhotos();
+                }, 800);
+            }, 3000);
+        }
+
+        // Animasi masuk bertahap untuk foto
+        function animatePhotos() {
+            const photoItems = document.querySelectorAll('.photo-item');
+            
+            photoItems.forEach((item, index) => {
+                // Set awal posisi
+                const isLeftColumn = item.closest('.left-column');
+                
+                if (isLeftColumn) {
+                    item.style.transform = 'translateX(-50px)';
+                } else {
+                    item.style.transform = 'translateX(50px)';
+                }
+                
+                // Animasikan masuk dengan delay
+                setTimeout(() => {
+                    item.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                    item.classList.add('visible');
+                    item.style.transform = 'translateX(0)';
+                }, 500 + index * 500);
+            });
+        }
+
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mulai musik
+            startBackgroundMusic();
+            
+            // Buat partikel hati
+            createHeartParticles();
+            
+            // Load galeri foto
+            loadGallery();
+            
+            // Sembunyikan loading screen setelah beberapa saat
+            hideLoadingScreen();
+        });
+    </script>
+</body>
+</html>
